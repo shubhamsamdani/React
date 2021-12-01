@@ -1,7 +1,8 @@
 //import React, { Component } from 'react';
 //import './App.css';
 //import Person from './components/Person/Person.js'
-import Expenses from "./components/Expenses";
+import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpenses/NewExpenses";
 
 function App() {
     const expenses = [
@@ -28,7 +29,7 @@ function App() {
 
     return (
         <div>
-            <h2> Let's start</h2>
+            <NewExpense/>
             <Expenses item = {expenses[0]}></Expenses>
             <Expenses item = {expenses[1]}></Expenses>
             <Expenses item = {expenses[2]}></Expenses>
