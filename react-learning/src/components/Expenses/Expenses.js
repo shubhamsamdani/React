@@ -1,18 +1,36 @@
+import React, { useState } from 'react'
 import './Expenses.css'
 import Card from '../Card'
+import ExpenseFilter from '../ExpensesFilter'
 import ExpenseItem from './ExpenseItem'
 
-function Expenses(props){
+const Expenses = (props) => {
 
-    return(
-        <Card className = "expenses">
-            <ExpenseItem
-                title={props.item.title}
-                amount={props.item.amount}
-                date={props.item.date}
-            ></ExpenseItem>
-        </Card>
-    )
+    const [selectedYear, setSelectedYear] = useState('2020');
+    const filteredList = props.item.filter((e) => e.date.getFullYear().toString() === selectedYear);
+    const dropDownValueHandler = enteredYear => {
+        console.log(enteredYear);
+        setSelectedYear(enteredYear);
+        console.log("selectedYear: " + selectedYear);
+    }
+
+    return (
+      <Card className="expenses">
+        <ExpenseFilter
+          selected={selectedYear}
+          onDropDownValueHandler={dropDownValueHandler}
+        />
+        {filteredList.length === 0 && <p>No Data for given year</p>}
+        {filteredList.length > 0 && filteredList.map((expenses) => (
+          <ExpenseItem
+            key = {expenses.id}
+            title={expenses.title}
+            amount={expenses.amount}
+            date={expenses.date}
+          />
+        ))}
+      </Card>
+    );
 }
 
 export default Expenses;
